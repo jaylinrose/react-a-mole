@@ -1,22 +1,21 @@
-import { useState } from 'react'
-import Mole from './Mole'
-import EmptySlot from './EmptySlot'
+import { useEffect } from "react"
+import MoleHill from '../molehill.png'
 
-const MoleContainer = (props) => {
-    let [theMole, setTheMole] = useState(false)
+const EmptySlot = (props) => {
 
-    const handleClick = (e) => {
-        props.setScore(props.score + 1)
-        setTheMole(false)
-    }
-
-    let displayMole = theMole ? <Mole setScore={props.setScore} toggle={setTheMole} handleClick={handleClick} /> : <EmptySlot toggle={setTheMole} />
+    useEffect(() => {
+        let randSeconds = Math.ceil(Math.random() * 5000)
+        let timer = setTimeout(() => {
+            props.toggle(true)
+        }, randSeconds)
+        return () => clearTimeout(timer)
+    })
 
     return (
-        <div style={{'display': 'inline-block', 'width': '30vw'}}>
-            {displayMole}
+        <div>
+            <img style={{'width': '30vw'}} src={MoleHill} />
         </div>
     )
 }
 
-export default MoleContainer;
+export default EmptySlot;
